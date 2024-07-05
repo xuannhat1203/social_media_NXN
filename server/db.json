@@ -1,0 +1,234 @@
+{
+  "users": [
+    {
+      "email": "admin1203@gmail.com",
+      "passWord": "admin1203"
+    },
+    {
+      "id": 1,
+      "userName": "xuannhat1203",
+      "email": "xuannhatvn211@gmail.com",
+      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
+      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-thac-nuoc-dep-nhat_014852764.jpg",
+      "passWord": "Xuannhat1@",
+      "statusLock": false,
+      "follow ": [
+        {
+          "userId": 1,
+          "created_at": "2024-02-20T11:00:00Z"
+        }
+      ],
+      "friends": [
+        {
+          "userId": 1,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "hoangnguyen"
+        },
+        {
+          "userId": 2,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "minhtran"
+        }
+      ],
+      "groups": [],
+      "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "userName": "hoangnguyen",
+      "email": "hoangnguyen@example.com",
+      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
+      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-bien-dep-nhat_014852764.jpg",
+      "passWord": "Hoangnguyen1@",
+      "statusLock": false,
+      "follow": [
+        {
+          "userId": 2,
+          "created_at": "2024-02-20T12:00:00Z"
+        }
+      ],
+      "friends": [
+        {
+          "userId": 2,
+          "add_at": "2024-02-20T12:00:00Z"
+        }
+      ],
+      "groups": [],
+      "create_at": "2024-01-16T08:00:00Z"
+    },
+    {
+      "id": 3,
+      "userName": "minhtran",
+      "email": "minhtran@example.com",
+      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
+      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-mua-dep-nhat_014852764.jpg",
+      "passWord": "Minhtran1@",
+      "statusLock": false,
+      "follow": [
+        {
+          "userId": 3,
+          "created_at": "2024-02-20T13:00:00Z"
+        }
+      ],
+      "friends": [
+        {
+          "userId": 3,
+          "add_at": "2024-02-20T13:00:00Z"
+        }
+      ],
+      "groups": [],
+      "create_at": "2024-01-17T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "userName": "thanhle",
+      "email": "thanhle@example.com",
+      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
+      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-doi-nui-dep-nhat_014852764.jpg",
+      "passWord": "Thanhle1@",
+      "statusLock": false,
+      "follow": [
+        {
+          "userId": 4,
+          "created_at": "2024-02-20T14:00:00Z"
+        }
+      ],
+      "friends": [
+        {
+          "userId": 4,
+          "add_at": "2024-02-20T14:00:00Z"
+        }
+      ],
+      "groups": [],
+      "create_at": "2024-01-18T08:00:00Z"
+    },
+    {
+      "userName": "xuannhat123341",
+      "email": "xuannhat12@gmail.com",
+      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
+      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-doi-nui-dep-nhat_014852764.jpg",
+      "passWord": "Xuannhat1@",
+      "statusLock": false,
+      "follow": [
+        {
+          "userId": 4,
+          "created_at": "2024-02-20T14:00:00Z"
+        }
+      ],
+      "friends": [
+        {
+          "userId": 4,
+          "add_at": "2024-02-20T14:00:00Z"
+        }
+      ],
+      "groups": [],
+      "create_at": "2024-01-18T08:00:00Z",
+      "id": 5
+    }
+  ],
+  "post": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "group_id": -1,
+      "content": "Trai đẹp học code",
+      "userName": "xuannhat1203",
+      "image": [
+        "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg"
+      ],
+      "reactions": [
+        {
+          "user_id": 2,
+          "type": "laugh",
+          "create_at": "2024-01-15T08:00:00Z"
+        }
+      ],
+      "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "group_id": -1,
+      "content": "Trai đẹp học code",
+      "userName": "hoangnguyen",
+      "image": [
+        "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg"
+      ],
+      "reactions": [
+        {
+          "user_id": 2,
+          "type": "laugh",
+          "create_at": "2024-01-15T08:00:00Z"
+        }
+      ],
+      "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "group_id": -1,
+      "content": "Trai đẹp học code",
+      "userName": "minhtran",
+      "image": [
+        "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg"
+      ],
+      "reactions": [
+        {
+          "user_id": 2,
+          "type": "laugh",
+          "create_at": "2024-01-15T08:00:00Z"
+        }
+      ],
+      "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "user_id": 4,
+      "group_id": -1,
+      "content": "Trai đẹp học code",
+      "userName": "thanhle",
+      "image": [
+        "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg"
+      ],
+      "reactions": [
+        {
+          "user_id": 2,
+          "type": "laugh",
+          "create_at": "2024-01-15T08:00:00Z"
+        }
+      ],
+      "create_at": "2024-01-15T08:00:00Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "post_id": 1,
+      "user_id": 2,
+      "image": "",
+      "content": "ảnh thật đẹp",
+      "reactions": [],
+      "create_at": "2024-01-15T08:00:00Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "group_picture": "https://timhomestay.vn/wp-content/uploads/2021/01/6086_hue_thanh_pho_cua_nhung_sac_hoa_12015327052019.jpg",
+      "banner": "https://timhomestay.vn/wp-content/uploads/2021/01/6086_hue_thanh_pho_cua_nhung_sac_hoa_12015327052019.jpg",
+      "bio": "Web developer and coffee enthusiast",
+      "member": [
+        {
+          "userId": 1,
+          "join_at": "2024-02-20T11:00:00Z"
+        }
+      ],
+      "create_at": "2024-02-20T11:00:00Z"
+    }
+  ],
+  "userLogin": []
+}
