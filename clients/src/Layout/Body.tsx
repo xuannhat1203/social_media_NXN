@@ -8,6 +8,7 @@ import storage from "../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { addPost } from "../store/reducers/post";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 export default function Body() {
   const [listEmail, setListEmail] = useState<string | null>(null);
@@ -16,7 +17,10 @@ export default function Body() {
   const [image, setImage] = useState<any[]>([]);
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const goToSuggestFriends = () => {
+    navigate("/friends");
+  };
   const getListUser = useSelector((state: any) => state.user.user);
   const getListPost = useSelector((state: any) => state.filter.filter);
   const post = useSelector((state: any) => state.post.post);
@@ -64,7 +68,6 @@ export default function Body() {
   useEffect(() => {
     dispatch(getPost());
   }, [dispatch]);
-
   useEffect(() => {
     const list = localStorage.getItem("email");
     if (list) {
@@ -75,6 +78,7 @@ export default function Body() {
   useEffect(() => {
     if (listEmail && getListUser) {
       const find = getListUser.find((user: any) => user.email === listEmail);
+
       if (find) {
         setListPost(find.friends.map((friend: any) => friend.userName));
       }
@@ -86,7 +90,6 @@ export default function Body() {
       dispatch(filterUser({ listPost, listUser: getListUser }));
     }
   }, [listPost, getListUser, dispatch]);
-  console.log(post, 1);
 
   useEffect(() => {
     if (getListPost.length > 0 && post.length > 0) {
@@ -119,7 +122,7 @@ export default function Body() {
               />
               Latest News
             </a>
-            <a href="#">
+            <a onClick={goToSuggestFriends} href="#">
               <img
                 src="https://vectorified.com/images/friends-icon-png-15.png"
                 alt="Friends"

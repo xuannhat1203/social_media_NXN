@@ -7,10 +7,10 @@
     {
       "id": 1,
       "userName": "xuannhat1203",
-      "email": "xuannhatvn211@gmail.com",
+      "email": "xuannhatvn2112@gmail.com",
+      "passWord": "Xuannhat1@",
       "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
       "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-thac-nuoc-dep-nhat_014852764.jpg",
-      "passWord": "Xuannhat1@",
       "statusLock": false,
       "follow ": [
         {
@@ -20,12 +20,12 @@
       ],
       "friends": [
         {
-          "userId": 1,
+          "userId": 2,
           "add_at": "2024-02-20T11:00:00Z",
           "userName": "hoangnguyen"
         },
         {
-          "userId": 2,
+          "userId": 3,
           "add_at": "2024-02-20T11:00:00Z",
           "userName": "minhtran"
         }
@@ -49,8 +49,14 @@
       ],
       "friends": [
         {
-          "userId": 2,
-          "add_at": "2024-02-20T12:00:00Z"
+          "userId": 1,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "xuannhat1203"
+        },
+        {
+          "userId": 3,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "minhtran"
         }
       ],
       "groups": [],
@@ -72,8 +78,14 @@
       ],
       "friends": [
         {
-          "userId": 3,
-          "add_at": "2024-02-20T13:00:00Z"
+          "userId": 1,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "hoangnguyen"
+        },
+        {
+          "userId": 2,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "minhtran"
         }
       ],
       "groups": [],
@@ -95,19 +107,31 @@
       ],
       "friends": [
         {
-          "userId": 4,
-          "add_at": "2024-02-20T14:00:00Z"
+          "userId": 2,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "hoangnguyen"
+        },
+        {
+          "userId": 3,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "minhtran"
+        },
+        {
+          "userId": 1,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "xuannhat1203"
         }
       ],
       "groups": [],
       "create_at": "2024-01-18T08:00:00Z"
     },
     {
-      "userName": "xuannhat123341",
-      "email": "xuannhat12@gmail.com",
+      "id": 5,
+      "userName": "thanhle2",
+      "email": "thanhle@example.com",
       "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
       "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-doi-nui-dep-nhat_014852764.jpg",
-      "passWord": "Xuannhat1@",
+      "passWord": "Thanhle2@",
       "statusLock": false,
       "follow": [
         {
@@ -117,42 +141,29 @@
       ],
       "friends": [
         {
-          "userId": 4,
-          "add_at": "2024-02-20T14:00:00Z"
+          "userId": 2,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "hoangnguyen"
+        },
+        {
+          "userId": 3,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "minhtran"
+        },
+        {
+          "userId": 1,
+          "add_at": "2024-02-20T11:00:00Z",
+          "userName": "xuannhat1203"
         }
       ],
       "groups": [],
-      "create_at": "2024-01-18T08:00:00Z",
-      "id": 5
-    },
-    {
-      "userName": "xuannhat1",
-      "email": "xuannhat1@gmail.com",
-      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
-      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-doi-nui-dep-nhat_014852764.jpg",
-      "passWord": "Xuannhat1@",
-      "statusLock": false,
-      "follow": [
-        {
-          "userId": 4,
-          "created_at": "2024-02-20T14:00:00Z"
-        }
-      ],
-      "friends": [
-        {
-          "userId": 4,
-          "add_at": "2024-02-20T14:00:00Z"
-        }
-      ],
-      "groups": [],
-      "create_at": "2024-01-18T08:00:00Z",
-      "id": 6
+      "create_at": "2024-01-18T08:00:00Z"
     }
   ],
   "post": [
     {
       "id": 1,
-      "user_id": 1,
+      "user_id": 2,
       "group_id": -1,
       "content": "Trai đẹp học code",
       "userName": "xuannhat1203",
@@ -201,11 +212,12 @@
       "private": false,
       "image": [
         "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg",
         "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg"
       ],
       "reactions": [
         {
-          "user_id": 2,
+          "user_id": 3,
           "type": "laugh",
           "create_at": "2024-01-15T08:00:00Z"
         }
@@ -214,99 +226,25 @@
     },
     {
       "id": 4,
-      "user_id": 4,
+      "user_id": 1,
       "group_id": -1,
       "content": "Trai đẹp học code",
-      "userName": "thanhle",
+      "userName": "xuannhat1203",
       "private": false,
       "image": [
         "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg",
+        "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg",
         "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg"
       ],
       "reactions": [
         {
-          "user_id": 2,
+          "user_id": 4,
           "type": "laugh",
           "create_at": "2024-01-15T08:00:00Z"
         }
       ],
       "create_at": "2024-01-15T08:00:00Z"
-    },
-    {
-      "user_id": 1,
-      "group_id": -1,
-      "content": "23123124124",
-      "userName": "xuannhat1203",
-      "image": "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/images%2FScreenshot%202024-06-28%20075917.png?alt=media&token=9ebd6636-23c3-40c4-86fc-b53f254f38bb",
-      "private": false,
-      "reactions": [
-        {
-          "user_id": 2,
-          "type": "laugh",
-          "create_at": "2024-07-05T16:34:52.160Z"
-        }
-      ],
-      "create_at": "2024-07-05T16:34:52.160Z",
-      "id": 5
-    },
-    {
-      "user_id": 1,
-      "group_id": -1,
-      "content": "31231",
-      "userName": "xuannhat1203",
-      "image": "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/images%2FScreenshot%202024-06-28%20075907.png?alt=media&token=9875bde3-762c-4259-822e-4779d9c834c4",
-      "private": false,
-      "reactions": [
-        {
-          "user_id": 2,
-          "type": "laugh",
-          "create_at": "2024-07-05T17:03:33.812Z"
-        }
-      ],
-      "create_at": "2024-07-05T17:03:33.812Z",
-      "id": 6
-    },
-    {
-      "user_id": 1,
-      "group_id": -1,
-      "content": "Trai đẹp học code",
-      "userName": "xuannhat1203",
-      "image": [
-        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20162926.png?alt=media&token=8ef69e50-f7cb-4d29-80d4-0353b41e5009",
-        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-07-05%20075132.png?alt=media&token=415b1973-d95b-4080-bd85-115bd9a90143"
-      ],
-      "private": false,
-      "reactions": [
-        {
-          "user_id": 2,
-          "type": "laugh",
-          "create_at": "2024-07-05T17:12:55.024Z"
-        }
-      ],
-      "create_at": "2024-07-05T17:12:55.024Z",
-      "id": 7
-    },
-    {
-      "user_id": 1,
-      "group_id": -1,
-      "content": "Trai đẹp học code",
-      "userName": "xuannhat1203",
-      "image": [
-        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080101.png?alt=media&token=31a6a093-f7be-49e0-9f0a-01d7e1162b8c",
-        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080111.png?alt=media&token=e63589a8-59a5-4f67-90fe-9f145e97c5cc",
-        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080120.png?alt=media&token=0220bfbf-cba9-4d32-b037-66272ce135f5",
-        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080131.png?alt=media&token=2baece86-4803-4ce1-93c1-b5fc0345ee2e"
-      ],
-      "private": false,
-      "reactions": [
-        {
-          "user_id": 2,
-          "type": "laugh",
-          "create_at": "2024-07-05T17:13:34.158Z"
-        }
-      ],
-      "create_at": "2024-07-05T17:13:34.158Z",
-      "id": 8
     }
   ],
   "comments": [

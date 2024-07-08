@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../store/reducers/getUser";
 import { useNavigate } from "react-router-dom";
+import { deleteUsers } from "../store/reducers/deleteFriends";
 
 const SettingAccount = () => {
   const [email, setEmail] = useState<string>("");
+  const [friends, setFriends] = useState<any[]>([]);
 
   useEffect(() => {
     const list = localStorage.getItem("email");
@@ -21,29 +23,51 @@ const SettingAccount = () => {
     dispatch(getUsers());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (getUser.length) {
+      const find = getUser.find((user: any) => user.email === email);
+      if (find) {
+        const friendDetails = find.friends
+          .map((friend: any) => {
+            return getUser.find(
+              (user: any) => user.userName === friend.userName
+            );
+          })
+          .filter((friend: any) => friend !== undefined);
+        setFriends(friendDetails);
+      }
+    }
+  }, [getUser, email]);
+
   if (!getUser) {
     return <div>Loading...</div>;
   }
 
-  const find = getUser.filter((user: any) => user.email === email);
-  if (!find.length) {
-    return <div>No user found with email: {email}</div>;
-  }
-
-  let findFriends: any = [];
-  for (let i = 0; i < find[0]?.friends.length; i++) {
-    const findFriend = getUser.filter(
-      (user: any) => user.userName === find[0].friends[i].userName
-    );
-    if (findFriend.length > 0) {
-      findFriends.push(findFriend[0]);
-    }
-  }
   const goToMyAccount = () => {
     navigate("/settingAccount");
   };
   const goToManagerFriends = () => {
     navigate("/myFriend");
+  };
+  const deleteUser = (friendId: number) => {
+    const user = getUser.find((user: any) => user.email === email);
+    if (user) {
+      dispatch(deleteUsers({ userId: user.id, friendId })).then(
+        (result: any) => {
+          if (result.meta.requestStatus === "fulfilled") {
+            setFriends((prevFriends) =>
+              prevFriends.filter((friend) => friend.id !== friendId)
+            );
+          }
+        }
+      );
+    }
+  };
+  const goToHome = () => {
+    navigate("/home");
+  };
+  const goToManagerPost = () => {
+    navigate("/managePost");
   };
   return (
     <div className="flex h-screen bg-gray-100">
@@ -52,6 +76,12 @@ const SettingAccount = () => {
         <div className="p-4 text-xl font-bold">Rikkei Academy</div>
         <nav>
           <ul>
+            <li
+              onClick={goToHome}
+              className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer"
+            >
+              <span className="mr-2">◻️</span>Home
+            </li>
             <li
               onClick={goToMyAccount}
               className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer"
@@ -64,14 +94,14 @@ const SettingAccount = () => {
             >
               <span className="mr-2">◻️</span>Quản lí bạn bè
             </li>
-            <li className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer">
+            <li
+              onClick={goToManagerPost}
+              className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer"
+            >
               <span className="mr-2">◻️</span>Quản lí bài viết
             </li>
             <li className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer">
               <span className="mr-2">◻️</span>Quản lí ảnh và video
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer">
-              <span className="mr-2">◻️</span>Settings
             </li>
           </ul>
         </nav>
@@ -109,7 +139,7 @@ const SettingAccount = () => {
               </tr>
             </thead>
             <tbody>
-              {findFriends.map((user: any, index: number) => (
+              {friends.map((user: any, index: number) => (
                 <tr key={user.id} className="border-t">
                   <td className="p-3">{index + 1}</td>
                   <td className="p-3">{user.userName}</td>
@@ -122,7 +152,12 @@ const SettingAccount = () => {
                   <td className="p-3">
                     <button className="text-blue-500 mr-2">View</button>
                     <button className="text-yellow-500 mr-2">Edit</button>
-                    <button className="text-red-500">Delete</button>
+                    <button
+                      onClick={() => deleteUser(user.id)}
+                      className="text-red-500"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

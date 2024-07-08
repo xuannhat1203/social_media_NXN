@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../store/reducers/getUser";
 import { useNavigate } from "react-router-dom";
 import "../SCSS/admin.scss";
+import { updateUser } from "../store/reducers/updateUser";
 
 const SettingYourAccount = () => {
   const [email, setEmail] = useState<string>("");
@@ -11,7 +12,8 @@ const SettingYourAccount = () => {
     userName: "",
     email: "",
     password: "",
-    avata: "",
+    avatar: "",
+    id: "",
   });
 
   const navigate = useNavigate();
@@ -34,8 +36,6 @@ const SettingYourAccount = () => {
   }
 
   const find = getUser.filter((user: any) => user.email === email);
-  console.log(find);
-
   if (!find.length) {
     return <div>No user found with email: {email}</div>;
   }
@@ -60,13 +60,15 @@ const SettingYourAccount = () => {
 
   const openModal = () => {
     setUserInfo({
+      id: find[0].id,
       userName: find[0].userName,
       email: find[0].email,
-      password: "",
-      avata: find[0].avata,
+      password: find[0].PassWord,
+      avatar: find[0].avatar,
     });
     setIsModalOpen(true);
   };
+  console.log(find[0]);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -81,10 +83,20 @@ const SettingYourAccount = () => {
   };
 
   const handleSave = () => {
-    console.log(userInfo);
-    closeModal();
+    dispatch(updateUser(userInfo, find[0].id)).then(() => {
+      if (userInfo.email !== find[0].email) {
+        localStorage.setItem("email", JSON.stringify(userInfo.email));
+      }
+      closeModal();
+    });
   };
 
+  const goToManagerPost = () => {
+    navigate("/managePost");
+  };
+  const goToHome = () => {
+    navigate("/home");
+  };
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -92,6 +104,12 @@ const SettingYourAccount = () => {
         <div className="p-4 text-xl font-bold">Rikkei Academy</div>
         <nav>
           <ul>
+            <li
+              onClick={goToHome}
+              className="px-4 py-2 hover:bg-gray-700 flex items-center cursor-pointer"
+            >
+              <span className="mr-2">◻️</span>Home
+            </li>
             <li
               onClick={goToMyAccount}
               className="px-4 py-2 hover:bg-gray-700 flex items-center"
@@ -104,14 +122,14 @@ const SettingYourAccount = () => {
             >
               <span className="mr-2">◻️</span>Quản lí bạn bè
             </li>
-            <li className="px-4 py-2 hover:bg-gray-700 flex items-center">
+            <li
+              onClick={goToManagerPost}
+              className="px-4 py-2 hover:bg-gray-700 flex items-center"
+            >
               <span className="mr-2">◻️</span>Quản lí bài viết
             </li>
             <li className="px-4 py-2 hover:bg-gray-700 flex items-center">
               <span className="mr-2">◻️</span>Quản lí ảnh và video
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-700 flex items-center">
-              <span className="mr-2">◻️</span>Settings
             </li>
           </ul>
         </nav>
@@ -142,7 +160,7 @@ const SettingYourAccount = () => {
             <div className="left">
               <div
                 className="avata"
-                style={{ backgroundImage: `url(${find[0]?.avata})` }}
+                style={{ backgroundImage: `url(${find[0]?.avatar})` }}
               ></div>
               <div>
                 <h2 style={{ fontSize: "30px" }}>{find[0]?.userName}</h2>
@@ -233,12 +251,12 @@ const SettingYourAccount = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-1">Avata:</label>
+                <label className="block mb-1">Avatar:</label>
                 <input
                   className="border rounded px-2 py-1 w-full"
                   type="text"
-                  name="avata"
-                  value={userInfo.avata}
+                  name="avatar"
+                  value={userInfo.avatar}
                   onChange={handleInputChange}
                 />
               </div>
