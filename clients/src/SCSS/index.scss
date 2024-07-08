@@ -478,3 +478,7 @@ nav {
   padding-left: 23px;
   background: #000;
 }
+.cover {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}

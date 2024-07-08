@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "../../interface";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialUser: User[] = [];
 

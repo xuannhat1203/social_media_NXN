@@ -13,7 +13,9 @@ export const filterUser: any = createAsyncThunk(
 
 const filterReducer = createSlice({
   name: "filter",
-  initialState,
+  initialState: {
+    filter: initialState,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(filterUser.fulfilled, (state, action) => {

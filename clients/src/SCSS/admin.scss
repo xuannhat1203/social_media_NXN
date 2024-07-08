@@ -1,0 +1,281 @@
+// Define SCSS variables for easier customization
+$primary-color: #1f2937; // Dark blue for the sidebar background
+$secondary-color: #f3f4f6; // Light gray for the main content background
+$text-color: #ffffff; // White text color
+$input-background: #ffffff; // Background color for inputs
+$border-color: #d1d5db; // Border color for inputs
+$button-background: #3b82f6; // Blue background for buttons
+$button-text-color: #ffffff; // White text color for buttons
+$hover-background: #4b5563; // Darker background for hover state
+
+// Main container
+.flex {
+  display: flex;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.bg-gray-100 {
+  background-color: $secondary-color;
+}
+
+// Sidebar styles
+aside {
+  width: 64px;
+  background-color: $primary-color;
+  color: $text-color;
+  position: relative;
+
+  .p-4 {
+    padding: 16px;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: $hover-background;
+        }
+
+        span {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  .absolute {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: $text-color;
+  }
+}
+
+// Main content styles
+main {
+  flex: 1;
+  padding: 32px;
+  overflow: auto;
+  background-color: $secondary-color;
+
+  .flex {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .text-2xl {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .flex {
+      align-items: center;
+
+      input {
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 8px;
+        margin-right: 8px;
+        font-size: 1rem;
+      }
+
+      .bg-red-500 {
+        background-color: #ef4444;
+        color: $button-text-color;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .bg-white {
+    background-color: $input-background;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      width: 35%;
+      margin-top: 65px;
+      height: 500px;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      padding: 16px;
+
+      .avata {
+        width: 300px;
+        height: 300px;
+        border: 2px solid $border-color;
+        border-radius: 50%;
+        background-color: #e5e7eb;
+        background-size: cover;
+        background-position: center;
+      }
+
+      h2 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-top: 16px;
+      }
+    }
+
+    .right {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .input {
+        width: 600px;
+        max-width: 600px;
+        height: 50px;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 0 8px;
+        margin-bottom: 12px;
+      }
+
+      .btn {
+        background-color: $button-background;
+        color: $button-text-color;
+        border: none;
+        border-radius: 4px;
+        width: 150px;
+        padding: 12px 16px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: darken($button-background, 10%);
+        }
+      }
+    }
+
+    .flex {
+      justify-content: center;
+      padding: 16px;
+
+      button {
+        background-color: $button-background;
+        color: $button-text-color;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        margin: 0 4px;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: darken($button-background, 10%);
+        }
+      }
+
+      .bg-gray-200 {
+        background-color: #e5e7eb;
+      }
+
+      .bg-black {
+        background-color: #000;
+      }
+    }
+  }
+}
+
+// Modal styles
+#model {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); // Background color with opacity
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50; // Make sure the modal is above other content
+
+  .modal-content {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+
+    .text-xl {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .btn-cancel {
+      background-color: #ef4444;
+      color: $button-text-color;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: darken(#ef4444, 10%);
+      }
+    }
+
+    .btn-save {
+      background-color: $button-background;
+      color: $button-text-color;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: darken($button-background, 10%);
+      }
+    }
+
+    .flex {
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+    }
+  }
+}

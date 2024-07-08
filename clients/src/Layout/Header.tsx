@@ -26,6 +26,9 @@ export default function Header() {
       setListEmail(JSON.parse(list));
     }
   }, []);
+  const goToSetting = () => {
+    navigate("/settingAccount");
+  };
   return (
     <nav>
       <div className="nav-left">
@@ -104,7 +107,7 @@ export default function Header() {
                 src="https://www.pngall.com/wp-content/uploads/4/Settings-PNG0.png"
                 className="settings-icon"
               />
-              <a href="#">
+              <a onClick={goToSetting} href="#">
                 Settings & Privacy{" "}
                 <span className="material-symbols-outlined">
                   arrow_forward_ios
