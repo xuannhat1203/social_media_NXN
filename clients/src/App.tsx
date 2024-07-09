@@ -6,6 +6,8 @@ import SettingAccount from "./Layout/SettingAccount";
 import SettingYourAccount from "./Layout/SettingYourAccount";
 import ManagerPost from "./Layout/ManagerPost";
 import SuggestFriends from "./Layout/SuggestFriends";
+import CreateGroups from "./Layout/CreateGroups";
+import Search from "./Layout/Search";
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         path="/friends"
         element={<SuggestFriends></SuggestFriends>}
       ></Route>
+      <Route path="/group" element={<CreateGroups></CreateGroups>}></Route>
+      <Route path="/search" element={<Search></Search>}></Route>
     </Routes>
   );
 }
