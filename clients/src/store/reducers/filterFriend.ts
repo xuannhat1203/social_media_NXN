@@ -6,7 +6,6 @@ const initialState: any = {
 export const filterUser: any = createAsyncThunk(
   "/filter/getUsers",
   async ({ listPost, listUser }: { listPost: any[]; listUser: any[] }) => {
-    // Không cần gọi API vì bạn đã có listUser từ Redux store
     return { listPost, listUser };
   }
 );
@@ -20,7 +19,6 @@ const filterReducer = createSlice({
   extraReducers: (builder) => {
     builder.addCase(filterUser.fulfilled, (state, action) => {
       const { listPost, listUser } = action.payload;
-      // Lọc danh sách userName của các bạn bè có trong listUser
       const filteredUserNames = listPost
         .map((postUserName: any) => {
           const user = listUser.find(

@@ -2,48 +2,44 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import { useEffect, useState } from "react";
 import { getUsers } from "../store/reducers/getUser";
-import { addFriends } from "../store/reducers/addFriends";
-import "../SCSS/suggest.scss";
+import { searchGroup, searchUser } from "../store/reducers/search";
+import { getGroup2 } from "../store/reducers/getListGroup";
 
-export default function SuggestFriends() {
+export default function Search() {
   const getUser = useSelector((state: any) => state.user.user);
+  const searchResultsUser = useSelector((state: any) => state.search.search);
+  const searchResultsGroup = useSelector((state: any) => state.search.group);
+  const [search, setSearch] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const dispatch = useDispatch();
-  var curDate = new Date();
+  const getGroups = useSelector((state: any) => state.group.group);
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
-    if (storedEmail) {
-      setEmail(JSON.parse(storedEmail));
+    const find = localStorage.getItem("search");
+    if (find) {
+      setSearch(JSON.parse(find));
+    }
+    const find2 = localStorage.getItem("email");
+    if (find2) {
+      setEmail(JSON.parse(find2));
     }
   }, []);
+  useEffect(() => {
+    dispatch(getGroup2());
+  }, [dispatch]);
+  const findMyAccount = getUser.find((user: any) => user.email === email);
+  const friends = findMyAccount ? findMyAccount.friends || [] : [];
 
-  const findUser = getUser.find((user: any) => user.email === email);
-  const friendsList =
-    findUser?.friends.map((friend: any) => friend.userName) || [];
-
-  const filteredUsers = getUser.filter(
-    (user: any) =>
-      user.email !== email &&
-      !friendsList.includes(user.userName) &&
-      user.email !== "admin1203@gmail.com"
-  );
-
-  const addFriendHandler = (userName: string) => {
-    const friendToAdd = getUser.find((user: any) => user.userName === userName);
-    const newFriend = {
-      userId: friendToAdd.id,
-      userName: friendToAdd.userName,
-      add_at: curDate.toISOString(),
-    };
-
-    dispatch(addFriends({ userId: findUser.id, newFriend }));
-  };
-  const [search, setSearch] = useState<string>("");
+  useEffect(() => {
+    if (search) {
+      dispatch(searchUser({ nameUser: search, listUser: getUser }));
+      dispatch(searchGroup({ nameGroup: search, listGroup: getGroups }));
+    }
+  }, [search, dispatch, getUser, getGroups]);
 
   return (
     <>
@@ -124,18 +120,42 @@ export default function SuggestFriends() {
         {/* Ở giữa */}
         <div className="main-content">
           <div className="user-list">
-            <h2>Suggested Friends</h2>
-            {filteredUsers.map((user: any) => (
-              <div key={user.id}>
+            <h2>The person or group you want to find</h2>
+            {searchResultsUser.map((user: any) => {
+              const isFriend = friends.some(
+                (friend: any) => friend.userName === user.userName
+              );
+              return (
+                <div key={user.id}>
+                  <div>
+                    <img src={user.avatar} alt="" />
+                  </div>
+                  <div>
+                    <p>{user.userName}</p>
+                    <p>@{user.userName}</p>
+                  </div>
+                  <div>
+                    {isFriend ? (
+                      <button>Bạn bè</button>
+                    ) : (
+                      <button>Thêm bạn bè</button>
+                    )}
+                    <button>View Page</button>
+                  </div>
+                </div>
+              );
+            })}
+            {searchResultsGroup.map((group: any) => (
+              <div key={group.id}>
                 <div>
-                  <img src={user.avatar} alt="" />
-                  <h5>{user.userName}</h5>
+                  <img src={group.avatar} alt="" />
                 </div>
                 <div>
-                  <button>Gỡ</button>
-                  <button onClick={() => addFriendHandler(user.userName)}>
-                    Thêm bạn bè
-                  </button>
+                  <p>{group.name}</p>
+                  <p>{group.bio}</p>
+                </div>
+                <div>
+                  <button>Join Group</button>
                 </div>
               </div>
             ))}

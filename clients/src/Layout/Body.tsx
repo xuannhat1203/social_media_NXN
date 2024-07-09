@@ -9,6 +9,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { addPost } from "../store/reducers/post";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { listComment } from "../store/reducers/getComment";
 
 export default function Body() {
   const [listEmail, setListEmail] = useState<string | null>(null);
@@ -16,6 +17,9 @@ export default function Body() {
   const [render, setRender] = useState<any[]>([]);
   const [image, setImage] = useState<any[]>([]);
   const [title, setTitle] = useState("");
+  const [statusComment, setStatusComment] = useState<number | null>(null);
+  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [listComments, setListComments] = useState<any[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const goToSuggestFriends = () => {
@@ -24,16 +28,38 @@ export default function Body() {
   const getListUser = useSelector((state: any) => state.user.user);
   const getListPost = useSelector((state: any) => state.filter.filter);
   const post = useSelector((state: any) => state.post.post);
+  const comment = useSelector((state: any) => state.comment.comment);
   const finduser = getListUser.filter((user: any) => user.email === listEmail);
+
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
       setImage(Array.from(files));
     }
   };
+
+  const openComment = (id: number) => {
+    setSelectedPostId(id);
+    const find = comment.filter((post: any) => post.post_id === id);
+    console.log(find[0], 999);
+
+    if (find) {
+      setListComments(find);
+    }
+
+    setStatusComment(statusComment === id ? null : id);
+
+    const findUser = getListUser.find(
+      (user: any) => user.id === find[0]?.user_id
+    );
+    console.log(findUser, 1111);
+
+    if (findUser) {
+      setAvatars(findUser.avatar);
+    }
+  };
   const handleUpLoad = async () => {
     if (image.length === 0) return;
-
     const imageUrls = await Promise.all(
       image.map(async (file: any) => {
         const imageRef = ref(storage, `image/${file.name}`);
@@ -41,11 +67,10 @@ export default function Body() {
         return await getDownloadURL(snapshot.ref);
       })
     );
-
     const newPost = {
       user_id: finduser[0].id,
       group_id: -1,
-      content: "Trai đẹp học code",
+      content: title,
       userName: finduser[0].userName,
       image: imageUrls,
       private: false,
@@ -58,9 +83,11 @@ export default function Body() {
       ],
       create_at: dayjs(),
     };
-
     dispatch(addPost(newPost));
+    setTitle("");
+    setImage([]);
   };
+
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -68,6 +95,7 @@ export default function Body() {
   useEffect(() => {
     dispatch(getPost());
   }, [dispatch]);
+  const [avatars, setAvatars] = useState<string>("");
   useEffect(() => {
     const list = localStorage.getItem("email");
     if (list) {
@@ -76,9 +104,12 @@ export default function Body() {
   }, []);
 
   useEffect(() => {
+    dispatch(listComment());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (listEmail && getListUser) {
       const find = getListUser.find((user: any) => user.email === listEmail);
-
       if (find) {
         setListPost(find.friends.map((friend: any) => friend.userName));
       }
@@ -109,6 +140,10 @@ export default function Body() {
     }
   }, [getListPost, getListUser, post]);
 
+  const goToGroup = () => {
+    navigate("/group");
+  };
+
   return (
     <>
       <div className="container">
@@ -129,7 +164,7 @@ export default function Body() {
               />
               Friends
             </a>
-            <a href="#">
+            <a onClick={goToGroup} href="#">
               <img
                 src="https://cdn.pixabay.com/photo/2016/11/14/17/39/group-1824145_1280.png"
                 alt="Group"
@@ -187,64 +222,28 @@ export default function Body() {
         {/* Ở giữa */}
         <div className="main-content">
           <div className="story-gallery">
-            <div className="story story1">
-              <img
-                src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-flat-plus-image_1127818.jpg"
-                alt="Post Story"
-              />
-              <p className="p">Post Story</p>
-            </div>
-            <div className="story story2">
-              <img
-                src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-flat-plus-image_1127818.jpg"
-                alt="Post Story"
-              />
-              <p className="p">Post Story</p>
-            </div>
-            <div className="story story3">
-              <img
-                src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-flat-plus-image_1127818.jpg"
-                alt="Post Story"
-              />
-              <p className="p">Post Story</p>
-            </div>
-            <div className="story story4">
-              <img
-                src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-flat-plus-image_1127818.jpg"
-                alt="Post Story"
-              />
-              <p className="p">Post Story</p>
-            </div>
-            <div className="story story5">
-              <img
-                src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-flat-plus-image_1127818.jpg"
-                alt="Post Story"
-              />
-              <p className="p">Post Story</p>
-            </div>
-          </div>
-          <div className="write-post-container">
-            <div className="user-profile">
-              <img
-                src="https://live.staticflickr.com/1305/804659305_29815f2ec5_b.jpg"
-                alt="Xuân Nhất"
-              />
-              <div>
-                <p>Xuân Nhất</p>
-                <small>
-                  <select>
-                    <option value="Public">Public</option>
-                    <option value="Private">Private</option>
-                  </select>{" "}
-                  <i className="fa-solid fa-caret-down"></i>
-                </small>
-              </div>
-            </div>
             <div className="post-input-container">
+              <div className="user-profile">
+                <img
+                  src="https://live.staticflickr.com/1305/804659305_29815f2ec5_b.jpg"
+                  alt="Xuân Nhất"
+                />
+                <div>
+                  <p>Xuân Nhất</p>
+                  <small>
+                    <select>
+                      <option value="Public">Public</option>
+                      <option value="Private">Private</option>
+                    </select>{" "}
+                    <i className="fa-solid fa-caret-down"></i>
+                  </small>
+                </div>
+              </div>
               <textarea
                 onChange={(e) => setTitle(e.target.value)}
                 rows={3}
                 placeholder="What is on your mind, John?"
+                value={title}
               ></textarea>
               <div className="add-post-links">
                 <a href="#">
@@ -317,7 +316,7 @@ export default function Body() {
                         />
                         120
                       </div>
-                      <div>
+                      <div onClick={() => openComment(user.id)}>
                         <img
                           src="https://cdn-icons-png.flaticon.com/512/25/25384.png"
                           alt="Comments"
@@ -340,6 +339,21 @@ export default function Body() {
                       <i className="fa fa-caret-down"></i>
                     </div>
                   </div>
+                  {/* Hiển thị các bình luận */}
+                  {statusComment === user.id && (
+                    <div className="comments-section">
+                      {listComments.map((comment: any) => (
+                        <div key={comment.id} className="comment">
+                          <img src={avatars} alt="" />
+                          <p>{user.userName}</p>
+                          <p>
+                            <strong>{comment.userName}:</strong>{" "}
+                            {comment.content}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )
           )}
@@ -393,7 +407,7 @@ export default function Body() {
             <h4>Conversations</h4>
             <a href="#">Hide Chat</a>
           </div>
-          {render.map((item: any) => (
+          {/* {render.map((item: any) => (
             <div className="online-list" key={item.userName}>
               <div className="online">
                 <img
@@ -403,7 +417,7 @@ export default function Body() {
               </div>
               <p>{item.userName}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </>

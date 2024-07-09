@@ -8,6 +8,11 @@ import addPostReducer from "./reducers/post";
 import updateReducer from "./reducers/updateUser";
 import deleteReducer from "./reducers/deleteFriends";
 import deletePostReducer from "./reducers/deletePost";
+import addFriendReducer from "./reducers/addFriends";
+import groupReducer from "./reducers/createGroup";
+import commentReducer from "./reducers/getComment";
+import searchSlice from "./reducers/search";
+import groupReducer2 from "./reducers/getListGroup";
 const rootReducer = combineReducers({
   user: userReducer,
   filter: filterReducer,
@@ -17,6 +22,11 @@ const rootReducer = combineReducers({
   update: updateReducer,
   delete: deleteReducer,
   deletePost: deletePostReducer,
+  addFriends: addFriendReducer,
+  groups: groupReducer,
+  comment: commentReducer,
+  search: searchSlice,
+  group: groupReducer2,
 });
 const store = configureStore({
   reducer: rootReducer,

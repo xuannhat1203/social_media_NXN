@@ -482,3 +482,63 @@ nav {
   display: grid;
   grid-template-columns: auto auto auto;
 }
+/* Phần bên trái */
+.left-sidebar {
+  .imp-links a {
+    display: flex;
+    align-items: center;
+    img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  }
+  .shortcut-links a {
+    display: flex;
+    align-items: center;
+    img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  }
+}
+
+/* Phần giữa */
+.main-content {
+  .post-container {
+    .comments-section {
+      margin-top: 10px;
+      .comment {
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+/* Phần bình luận */
+.comments-section {
+  .comment {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    p {
+      margin: 0;
+      strong {
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -20,14 +20,15 @@
       ],
       "friends": [
         {
-          "userId": 2,
-          "add_at": "2024-02-20T11:00:00Z",
-          "userName": "hoangnguyen"
-        },
-        {
           "userId": 3,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "minhtran"
+          "userName": "minhtran",
+          "id": 2
+        },
+        {
+          "userId": 4,
+          "userName": "thanhle",
+          "add_at": "2024-07-09T15:31:08.618Z"
         }
       ],
       "groups": [],
@@ -51,12 +52,14 @@
         {
           "userId": 1,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "xuannhat1203"
+          "userName": "xuannhat1203",
+          "id": 1
         },
         {
           "userId": 3,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "minhtran"
+          "userName": "minhtran",
+          "id": 2
         }
       ],
       "groups": [],
@@ -80,12 +83,14 @@
         {
           "userId": 1,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "hoangnguyen"
+          "userName": "hoangnguyen",
+          "id": 1
         },
         {
           "userId": 2,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "minhtran"
+          "userName": "minhtran",
+          "id": 2
         }
       ],
       "groups": [],
@@ -109,17 +114,20 @@
         {
           "userId": 2,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "hoangnguyen"
+          "userName": "hoangnguyen",
+          "id": 1
         },
         {
           "userId": 3,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "minhtran"
+          "userName": "minhtran",
+          "id": 2
         },
         {
           "userId": 1,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "xuannhat1203"
+          "userName": "xuannhat1203",
+          "id": 3
         }
       ],
       "groups": [],
@@ -143,17 +151,20 @@
         {
           "userId": 2,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "hoangnguyen"
+          "userName": "hoangnguyen",
+          "id": 1
         },
         {
           "userId": 3,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "minhtran"
+          "userName": "minhtran",
+          "id": 2
         },
         {
           "userId": 1,
           "add_at": "2024-02-20T11:00:00Z",
-          "userName": "xuannhat1203"
+          "userName": "xuannhat1203",
+          "id": 3
         }
       ],
       "groups": [],
@@ -226,10 +237,10 @@
     },
     {
       "id": 4,
-      "user_id": 1,
+      "user_id": 4,
       "group_id": -1,
       "content": "Trai đẹp học code",
-      "userName": "xuannhat1203",
+      "userName": "thanhle",
       "private": false,
       "image": [
         "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
@@ -256,6 +267,33 @@
       "content": "ảnh thật đẹp",
       "reactions": [],
       "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "post_id": 2,
+      "user_id": 2,
+      "image": "",
+      "content": "ảnh thật đẹp",
+      "reactions": [],
+      "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 3,
+      "post_id": 3,
+      "user_id": 2,
+      "image": "",
+      "content": "ảnh thật đẹp",
+      "reactions": [],
+      "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "post_id": 4,
+      "user_id": 2,
+      "image": "",
+      "content": "ảnh thật đẹp",
+      "reactions": [],
+      "create_at": "2024-01-15T08:00:00Z"
     }
   ],
   "groups": [
@@ -271,7 +309,27 @@
         }
       ],
       "create_at": "2024-02-20T11:00:00Z"
+    },
+    {
+      "group_picture": "blob:http://localhost:5173/435ed909-189c-45d7-8dee-44bc95048c49",
+      "banner": "https://timhomestay.vn/wp-content/uploads/2021/01/6086_hue_thanh_pho_cua_nhung_sac_hoa_12015327052019.jpg",
+      "bio": "xnPRO",
+      "member": [
+        {
+          "userName": "hoangnguyen",
+          "join_at": "2024-07-09T17:10:30.553Z"
+        },
+        {
+          "userName": "minhtran",
+          "join_at": "2024-07-09T17:10:30.553Z"
+        },
+        {
+          "userName": "thanhle",
+          "join_at": "2024-07-09T17:10:30.553Z"
+        }
+      ],
+      "create_at": "2024-07-09T17:10:30.553Z",
+      "id": 2
     }
-  ],
-  "userLogin": []
+  ]
 }
