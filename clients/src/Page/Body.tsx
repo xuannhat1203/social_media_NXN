@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../SCSS/index.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../store/reducers/getUser";
@@ -9,10 +9,16 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { addPost } from "../store/reducers/post";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-import { listComment } from "../store/reducers/getComment";
+import getComment, {
+  addComment,
+  listComment,
+} from "../store/reducers/getComment";
+import { addToBlock } from "../store/reducers/addUserToBlock";
+import { clickReact } from "../store/reducers/addReact";
 
 export default function Body() {
   const [listEmail, setListEmail] = useState<string | null>(null);
+  const [comments, setComments] = useState("");
   const [listPost, setListPost] = useState<string[]>([]);
   const [render, setRender] = useState<any[]>([]);
   const [image, setImage] = useState<any[]>([]);
@@ -20,11 +26,20 @@ export default function Body() {
   const [statusComment, setStatusComment] = useState<number | null>(null);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
   const [listComments, setListComments] = useState<any[]>([]);
+  var d = new Date();
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    const find = localStorage.getItem("email");
+    if (find) {
+      setEmail(JSON.parse(find));
+    }
+  }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const goToSuggestFriends = () => {
     navigate("/friends");
   };
+  const [openHide, setOpenHide] = useState<boolean>(false);
   const getListUser = useSelector((state: any) => state.user.user);
   const getListPost = useSelector((state: any) => state.filter.filter);
   const post = useSelector((state: any) => state.post.post);
@@ -41,8 +56,6 @@ export default function Body() {
   const openComment = (id: number) => {
     setSelectedPostId(id);
     const find = comment.filter((post: any) => post.post_id === id);
-    console.log(find[0], 999);
-
     if (find) {
       setListComments(find);
     }
@@ -52,7 +65,6 @@ export default function Body() {
     const findUser = getListUser.find(
       (user: any) => user.id === find[0]?.user_id
     );
-    console.log(findUser, 1111);
 
     if (findUser) {
       setAvatars(findUser.avatar);
@@ -121,27 +133,73 @@ export default function Body() {
       dispatch(filterUser({ listPost, listUser: getListUser }));
     }
   }, [listPost, getListUser, dispatch]);
-
   useEffect(() => {
     if (getListPost.length > 0 && post.length > 0) {
-      const filteredPosts = getListPost
-        .map((postUserName: any) => {
-          const user = getListUser.find(
-            (user: any) => user.userName === postUserName
-          );
-          if (user) {
-            return post.find((p: any) => p.user_id === user.id);
-          }
-          return null;
-        })
-        .filter((post: any) => post !== null);
+      const findUser = getListUser.find((user: any) => user.email === email);
+      if (findUser) {
+        const friendsList = findUser.friends.map(
+          (friend: any) => friend.userName
+        );
 
-      setRender(filteredPosts as any[]);
+        const filteredPosts = post.filter((p: any) => {
+          if (p.block && p.block.length > 0) {
+            return (
+              !p.block.includes(findUser.userName) &&
+              friendsList.includes(p.userName)
+            );
+          }
+          return friendsList.includes(p.userName);
+        });
+
+        setRender(filteredPosts);
+      }
     }
-  }, [getListPost, getListUser, post]);
+  }, [getListPost, getListUser, post, email]);
 
   const goToGroup = () => {
     navigate("/group");
+  };
+  const openSelect = () => {
+    setOpenHide(!openHide);
+  };
+  const deletePost = async (id: number) => {
+    const find = getListUser.find((user: any) => user.email === email);
+    if (find) {
+      await dispatch(addToBlock({ id, nameIsBlocked: find.userName }));
+      dispatch(getPost());
+    }
+  };
+  const commentPost = async (idPost: any) => {
+    const find = getListUser.find((user: any) => user.email === email);
+    if (find) {
+      const newComment = {
+        post_id: idPost,
+        user_id: find.id,
+        image: "",
+        userName: find.userName,
+        content: comments,
+        reactions: [],
+        create_at: d.getDay(),
+      };
+      await dispatch(addComment(newComment));
+      setComments("");
+      dispatch(listComment());
+    }
+  };
+
+  useEffect(() => {
+    if (selectedPostId) {
+      const updatedComments = comment.filter(
+        (c: any) => c.post_id === selectedPostId
+      );
+      setListComments(updatedComments);
+    }
+  }, [comment, selectedPostId]);
+  const likePost = (idPost: number) => {
+    const findUser = getListUser.find((user: any) => user.email === email);
+    if (findUser) {
+      dispatch(clickReact({ id: findUser.id, idPost }));
+    }
   };
 
   return (
@@ -287,7 +345,43 @@ export default function Body() {
                         <span>{user.userName}</span>
                       </div>
                     </div>
-                    <a href="#">
+                    {openHide === true && (
+                      <div
+                        className="hire"
+                        style={{
+                          width: "150px",
+                          border: "1px solid black",
+                          height: "60px",
+                        }}
+                      >
+                        <div
+                          onClick={() => deletePost(user.user_id)}
+                          className="hover"
+                          style={{
+                            width: "150px",
+                            height: "30px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          Xóa bài
+                        </div>
+                        <div
+                          className="hover"
+                          style={{
+                            width: "150px",
+                            height: "30px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          Ẩn bài
+                        </div>
+                      </div>
+                    )}
+                    <a onClick={openSelect} href="#">
                       <i className="fa-solid fa-ellipsis-v"></i>
                     </a>
                   </div>
@@ -309,12 +403,16 @@ export default function Body() {
                   </div>
                   <div className="post-row">
                     <div className="activity-icons">
-                      <div>
+                      <div onClick={() => likePost(user.id)}>
                         <img
                           src="https://img.icons8.com/external-justicon-flat-justicon/344/external-like-notifications-justicon-flat-justicon.png"
                           alt="Like"
                         />
-                        120
+                        {
+                          user.reactions.filter(
+                            (reaction: any) => reaction.type === "like"
+                          ).length
+                        }
                       </div>
                       <div onClick={() => openComment(user.id)}>
                         <img
@@ -345,13 +443,22 @@ export default function Body() {
                       {listComments.map((comment: any) => (
                         <div key={comment.id} className="comment">
                           <img src={avatars} alt="" />
-                          <p>{user.userName}</p>
                           <p>
                             <strong>{comment.userName}:</strong>{" "}
                             {comment.content}
                           </p>
                         </div>
                       ))}
+                      <div>
+                        <input
+                          onChange={(e) => setComments(e.target.value)}
+                          type="text"
+                          placeholder="nhập bình luận của bạn"
+                        />
+                        <button onClick={() => commentPost(user.id)}>
+                          Bình luận
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>

@@ -1,5 +1,5 @@
-import Body from "../Layout/Body";
-import Header from "../Layout/Header";
+import Body from "../Page/Body";
+import Header from "../Page/Header";
 export default function Main() {
   return (
     <>

@@ -1,17 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-interface SearchState {
-  searchResults: any[];
-  isSearching: boolean;
-  searchError: string | null;
-}
-
-const initialState: SearchState = {
-  searchResults: [],
-  isSearching: false,
-  searchError: null,
-};
-
 export const searchUser: any = createAsyncThunk(
   "search/searchUser",
   async ({ nameUser, listUser }: { nameUser: string; listUser: any[] }) => {

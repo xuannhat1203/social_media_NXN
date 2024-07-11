@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import { useEffect, useState } from "react";
 import { getUsers } from "../store/reducers/getUser";
-import { addFriends } from "../store/reducers/addFriends";
+import { addFriend2s, addFriends } from "../store/reducers/addFriends";
 import "../SCSS/suggest.scss";
 
 export default function SuggestFriends() {
@@ -23,9 +23,10 @@ export default function SuggestFriends() {
   }, []);
 
   const findUser = getUser.find((user: any) => user.email === email);
+  console.log(findUser.invitation, 1);
+
   const friendsList =
     findUser?.friends.map((friend: any) => friend.userName) || [];
-
   const filteredUsers = getUser.filter(
     (user: any) =>
       user.email !== email &&
@@ -43,8 +44,15 @@ export default function SuggestFriends() {
 
     dispatch(addFriends({ userId: findUser.id, newFriend }));
   };
-  const [search, setSearch] = useState<string>("");
-
+  const addFriend = (userName: string) => {
+    const friendToAdd = getUser.find((user: any) => user.userName === userName);
+    const newFriend = {
+      userId: friendToAdd.id,
+      userName: friendToAdd.userName,
+      add_at: curDate.toISOString(),
+    };
+    dispatch(addFriend2s({ userId: findUser.id, newFriend }));
+  };
   return (
     <>
       <Header />
@@ -135,6 +143,24 @@ export default function SuggestFriends() {
                   <button>Gỡ</button>
                   <button onClick={() => addFriendHandler(user.userName)}>
                     Thêm bạn bè
+                  </button>
+                </div>
+              </div>
+            ))}
+            <h2>Invitation</h2>
+            {findUser.invitation.map((user: any) => (
+              <div key={user.id}>
+                <div>
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg"
+                    alt=""
+                  />
+                  <h5>{user.userName}</h5>
+                </div>
+                <div>
+                  <button>Gỡ</button>
+                  <button onClick={() => addFriend(user.userName)}>
+                    Chấp nhận
                   </button>
                 </div>
               </div>

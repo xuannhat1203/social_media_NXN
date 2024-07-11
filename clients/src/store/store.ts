@@ -13,6 +13,9 @@ import groupReducer from "./reducers/createGroup";
 import commentReducer from "./reducers/getComment";
 import searchSlice from "./reducers/search";
 import groupReducer2 from "./reducers/getListGroup";
+import blockReducer from "./reducers/addUserToBlock";
+import reactReducer from "./reducers/addReact";
+import adminReducer from "./reducers/adminAccout";
 const rootReducer = combineReducers({
   user: userReducer,
   filter: filterReducer,
@@ -27,6 +30,9 @@ const rootReducer = combineReducers({
   comment: commentReducer,
   search: searchSlice,
   group: groupReducer2,
+  block: blockReducer,
+  react: reactReducer,
+  admin: adminReducer,
 });
 const store = configureStore({
   reducer: rootReducer,

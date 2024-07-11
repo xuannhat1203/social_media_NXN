@@ -24,21 +24,27 @@ export default function Login() {
     const find = getAccounts.find((user: any) => {
       return user.email === email;
     });
+    console.log(find);
+
     if (find) {
-      if (find.email === admin.email) {
-        if (find.passWord === admin.passWord) {
-          localStorage.setItem("email", JSON.stringify(email));
-          navigate("/admin");
+      if (find.statusLock === false) {
+        if (find.email === admin.email) {
+          if (find.passWord === admin.passWord) {
+            localStorage.setItem("email", JSON.stringify(email));
+            navigate("/admin");
+          } else {
+            setStatusLogin(true);
+          }
         } else {
-          setStatusLogin(true);
+          if (find.passWord === passWord) {
+            localStorage.setItem("email", JSON.stringify(email));
+            navigate("/home");
+          } else {
+            setStatusLogin(true);
+          }
         }
       } else {
-        if (find.passWord === passWord) {
-          localStorage.setItem("email", JSON.stringify(email));
-          navigate("/home");
-        } else {
-          setStatusLogin(true);
-        }
+        alert("Tài khoản đã bị khóa");
       }
     } else {
       setStatusLogin(true);
