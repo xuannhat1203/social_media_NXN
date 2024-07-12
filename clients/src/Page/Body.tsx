@@ -6,7 +6,7 @@ import { filterUser } from "../store/reducers/filterFriend";
 import { getPost } from "../store/reducers/getListPost";
 import storage from "../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { addPost } from "../store/reducers/post";
+import { addPost, getListStoryFriends } from "../store/reducers/post";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import getComment, {
@@ -15,7 +15,8 @@ import getComment, {
 } from "../store/reducers/getComment";
 import { addToBlock } from "../store/reducers/addUserToBlock";
 import { clickReact } from "../store/reducers/addReact";
-
+import { getBanner } from "../store/reducers/getBanner";
+import ModalStory from "./ModalStory";
 export default function Body() {
   const [listEmail, setListEmail] = useState<string | null>(null);
   const [comments, setComments] = useState("");
@@ -26,6 +27,18 @@ export default function Body() {
   const [statusComment, setStatusComment] = useState<number | null>(null);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
   const [listComments, setListComments] = useState<any[]>([]);
+  const getBanners = useSelector((state: any) => state.banner.banner);
+  const [listFriends, setListFriends] = useState([]);
+  const getListStory = useSelector((state: any) => state.addPost.story);
+  const [renderStory, setRenderStory] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getBanner());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getListStoryFriends());
+  }, [dispatch]);
   var d = new Date();
   const [email, setEmail] = useState<string>("");
   useEffect(() => {
@@ -34,8 +47,16 @@ export default function Body() {
       setEmail(JSON.parse(find));
     }
   }, []);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (getListStory.length > 0 && listFriends.length > 0) {
+      const filteredStories = getListStory.filter((story: any) =>
+        listFriends.some((friend: any) => friend.userName === story.userName)
+      );
+      setRenderStory(filteredStories);
+    } else {
+      setRenderStory([]);
+    }
+  }, [getListStory, listFriends]);
   const goToSuggestFriends = () => {
     navigate("/friends");
   };
@@ -141,15 +162,12 @@ export default function Body() {
           (friend: any) => friend.userName
         );
 
-        const filteredPosts = post.filter((p: any) => {
-          if (p.block && p.block.length > 0) {
-            return (
-              !p.block.includes(findUser.userName) &&
-              friendsList.includes(p.userName)
-            );
-          }
-          return friendsList.includes(p.userName);
-        });
+        const filteredPosts = post.filter(
+          (p: any) =>
+            p.statusHide === false &&
+            (friendsList.includes(p.userName) ||
+              (p.block && !p.block.includes(findUser.userName)))
+        );
 
         setRender(filteredPosts);
       }
@@ -201,7 +219,21 @@ export default function Body() {
       dispatch(clickReact({ id: findUser.id, idPost }));
     }
   };
+  useEffect(() => {
+    const findUser = getListUser.find((user: any) => user.email === email);
+    if (findUser) {
+      setListFriends(findUser.friends);
+    }
+  });
+  const [isModalOpen, setModalOpen] = useState(false);
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
     <>
       <div className="container">
@@ -280,6 +312,23 @@ export default function Body() {
         {/* Ở giữa */}
         <div className="main-content">
           <div className="story-gallery">
+            <div onClick={openModal} className="story story1">
+              <img src="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-flat-plus-image_1127818.jpg" />
+              <p>Post Story</p>
+            </div>
+            {getListStory.map((story: any) => (
+              <div
+                key={story.id}
+                style={{ backgroundImage: `url(${story.storyImage})` }}
+                className={`story story${story.id}`}
+              >
+                <p>{story.userName}</p>
+              </div>
+            ))}
+            <ModalStory isOpen={isModalOpen} onClose={closeModal} />
+          </div>
+
+          <div className="story-gallery">
             <div className="post-input-container">
               <div className="user-profile">
                 <img
@@ -343,6 +392,7 @@ export default function Body() {
                       <div>
                         <p>{user.userName}</p>
                         <span>{user.userName}</span>
+                        <p>{user.content}</p>
                       </div>
                     </div>
                     {openHide === true && (
@@ -505,16 +555,15 @@ export default function Body() {
             <h4>Advertisement</h4>
             <a href="#">Close</a>
           </div>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Adobe_Illustrator_CS6_Icon.png/1987px-Adobe_Illustrator_CS6_Icon.png"
-            className="sidebar-ads"
-            alt="Advertisement"
-          />
+          {getBanners.map((banner: any) => (
+            <img key={banner.id} src={banner.banner} />
+          ))}
+          <br />
           <div className="sidebar-title">
             <h4>Conversations</h4>
             <a href="#">Hide Chat</a>
           </div>
-          {/* {render.map((item: any) => (
+          {listFriends.map((item: any) => (
             <div className="online-list" key={item.userName}>
               <div className="online">
                 <img
@@ -524,7 +573,7 @@ export default function Body() {
               </div>
               <p>{item.userName}</p>
             </div>
-          ))} */}
+          ))}
         </div>
       </div>
     </>

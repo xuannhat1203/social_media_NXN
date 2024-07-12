@@ -3,7 +3,9 @@ import Header from "./Header";
 import { useEffect, useState } from "react";
 import { getUsers } from "../store/reducers/getUser";
 import { searchGroup, searchUser } from "../store/reducers/search";
-import { getGroup2 } from "../store/reducers/getListGroup";
+import { addMember, getGroup2 } from "../store/reducers/getListGroup";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 export default function Search() {
   const getUser = useSelector((state: any) => state.user.user);
@@ -12,7 +14,7 @@ export default function Search() {
   const [search, setSearch] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const getGroups = useSelector((state: any) => state.group.group);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
@@ -33,14 +35,23 @@ export default function Search() {
   }, [dispatch]);
   const findMyAccount = getUser.find((user: any) => user.email === email);
   const friends = findMyAccount ? findMyAccount.friends || [] : [];
-
   useEffect(() => {
     if (search) {
       dispatch(searchUser({ nameUser: search, listUser: getUser }));
       dispatch(searchGroup({ nameGroup: search, listGroup: getGroups }));
     }
   }, [search, dispatch, getUser, getGroups]);
-
+  const goToGroups = () => {
+    navigate("/group");
+  };
+  const joinGroup = (id: number) => {
+    const findMyAccount = getUser.find((user: any) => user.email === email);
+    const member = {
+      userName: findMyAccount.userName,
+      join_at: dayjs().format(),
+    };
+    dispatch(addMember({ idGroup: id, member }));
+  };
   return (
     <>
       <Header />
@@ -62,7 +73,7 @@ export default function Search() {
               />
               Friends
             </a>
-            <a href="#">
+            <a onClick={goToGroups} href="#">
               <img
                 src="https://cdn.pixabay.com/photo/2016/11/14/17/39/group-1824145_1280.png"
                 alt="Group"
@@ -148,14 +159,19 @@ export default function Search() {
             {searchResultsGroup.map((group: any) => (
               <div key={group.id}>
                 <div>
-                  <img src={group.avatar} alt="" />
+                  <img
+                    src="https://tse4.mm.bing.net/th?id=OIP.5YJYPEw7xkhVc0GHtpdG9QHaHv&pid=Api&P=0&h=180"
+                    alt=""
+                  />
                 </div>
                 <div>
                   <p>{group.name}</p>
                   <p>{group.bio}</p>
                 </div>
                 <div>
-                  <button>Join Group</button>
+                  <button onClick={() => joinGroup(group.id)}>
+                    Join Group
+                  </button>
                 </div>
               </div>
             ))}

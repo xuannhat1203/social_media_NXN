@@ -51,8 +51,6 @@ export default function Header() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-  console.log(getGroups, 0);
-
   const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       localStorage.setItem("search", JSON.stringify(search));
@@ -61,11 +59,14 @@ export default function Header() {
       navigate("/search");
     }
   };
-
+  const goToHome = () => {
+    navigate("/home");
+  };
   return (
     <nav>
       <div className="nav-left">
         <img
+          onClick={goToHome}
           src="http://clipart-library.com/new_gallery/377-3776210_facebook-logo-vector-logovectornet-logo-facebook-2019-png.png"
           className="logo"
           alt="logo"

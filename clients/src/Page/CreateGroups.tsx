@@ -3,6 +3,8 @@ import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { addGroup } from "../store/reducers/createGroup";
 import { getUsers } from "../store/reducers/getUser";
+import { useNavigate } from "react-router-dom";
+import { getBanner } from "../store/reducers/getBanner";
 
 interface User {
   userName: string;
@@ -18,7 +20,7 @@ export default function CreateGroups() {
   const [image, setImage] = useState<string | undefined>(undefined);
   const [nameGroup, setNameGroup] = useState<string>("");
   const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
@@ -29,9 +31,12 @@ export default function CreateGroups() {
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
+  const getBanners = useSelector((state: any) => state.banner.banner);
   const findUser = getUser.find((user: User) => user.email === email);
   const listFriends: User[] = findUser ? findUser.friends : [];
+  useEffect(() => {
+    dispatch(getBanner());
+  }, [dispatch]);
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -69,7 +74,9 @@ export default function CreateGroups() {
         : [...prevSelected, userName]
     );
   };
-
+  const goToFriend = () => {
+    navigate("/friends");
+  };
   return (
     <>
       <Header />
@@ -84,7 +91,7 @@ export default function CreateGroups() {
               />
               Latest News
             </a>
-            <a href="#">
+            <a onClick={goToFriend} href="#">
               <img
                 src="https://vectorified.com/images/friends-icon-png-15.png"
                 alt="Friends"
@@ -282,15 +289,25 @@ export default function CreateGroups() {
             <h4>Advertisement</h4>
             <a href="#">Close</a>
           </div>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Adobe_Illustrator_CS6_Icon.png/1987px-Adobe_Illustrator_CS6_Icon.png"
-            className="sidebar-ads"
-            alt="Advertisement"
-          />
+          {getBanners.map((banner: any) => (
+            <img key={banner.id} src={banner.banner} />
+          ))}
+          <br />
           <div className="sidebar-title">
             <h4>Conversations</h4>
             <a href="#">Hide Chat</a>
           </div>
+          {listFriends.map((item: any) => (
+            <div className="online-list" key={item.userName}>
+              <div className="online">
+                <img
+                  src="https://live.staticflickr.com/1305/804659305_29815f2ec5_b.jpg"
+                  alt="Xuân Nhất"
+                />
+              </div>
+              <p>{item.userName}</p>
+            </div>
+          ))}
         </div>
       </div>
     </>

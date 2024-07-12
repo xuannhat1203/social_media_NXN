@@ -16,6 +16,9 @@ import groupReducer2 from "./reducers/getListGroup";
 import blockReducer from "./reducers/addUserToBlock";
 import reactReducer from "./reducers/addReact";
 import adminReducer from "./reducers/adminAccout";
+import adminGroupReducer from "./reducers/adminGroups";
+import hidePostReducer from "./reducers/hidePost";
+import bannerReducer from "./reducers/getBanner";
 const rootReducer = combineReducers({
   user: userReducer,
   filter: filterReducer,
@@ -33,6 +36,9 @@ const rootReducer = combineReducers({
   block: blockReducer,
   react: reactReducer,
   admin: adminReducer,
+  change2: adminGroupReducer,
+  hide: hidePostReducer,
+  banner: bannerReducer,
 });
 const store = configureStore({
   reducer: rootReducer,
