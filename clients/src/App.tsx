@@ -11,6 +11,9 @@ import Search from "./Page/Search";
 import Admin from "./Layout/Admin";
 import AdminAccount from "./Components/AdminAccount";
 import DetailAcc from "./Components/DetailAcc";
+import AdminGroups from "./Components/AdminGroups";
+import AdminPost from "./Components/AdminPost";
+import AdminComments from "./Components/AdminComments";
 export default function App() {
   return (
     <Routes>
@@ -32,6 +35,9 @@ export default function App() {
         element={<AdminAccount></AdminAccount>}
       ></Route>
       <Route path="/detail" element={<DetailAcc></DetailAcc>}></Route>
+      <Route path="/manageGroups" element={<AdminGroups></AdminGroups>}></Route>
+      <Route path="/posts" element={<AdminPost></AdminPost>}></Route>
+      <Route path="/comments" element={<AdminComments></AdminComments>}></Route>
     </Routes>
   );
 }

@@ -208,7 +208,7 @@ nav {
 }
 .story-gallery {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
   margin-bottom: 20px;
   position: relative;
 }
@@ -218,7 +218,7 @@ nav {
   padding-top: 32%;
   position: relative;
   background-position: center;
-  background-image: url(("https://i.pinimg.com/originals/58/bf/24/58bf245ecef499e5c623921071db47ab.jpg"));
+  background-image: url(("https://s1.media.ngoisao.vn/news/2019/12/21/xuc-dong-hinh-anh-me-bat-khoc-chia-ly-con-trai-hien-tang-03-1-ngoisao.vn-w700-h933.jpg"));
   background-size: cover;
   border-radius: 10px;
 }
@@ -232,43 +232,16 @@ nav {
   border: 5px solid #1876f2;
 }
 
-.story p {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-}
+// .story p {
+//   position: relative;
+//   right: 10px;
+//   bottom: 10px;
+//   width: 100%;
+//   color: #fff;
+//   font-size: 14px;
+//   text-align: center;
+// }
 .story1 {
-  background-image: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.5),
-    url("https://freerangestock.com/sample/30763/cute-baby-boy.jpg")
-  );
-}
-.story2 {
-  background-image: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.5),
-    url("https://freerangestock.com/sample/30763/cute-baby-boy.jpg")
-  );
-}
-.story3 {
-  background-image: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.5),
-    url("https://freerangestock.com/sample/30763/cute-baby-boy.jpg")
-  );
-}
-.story4 {
-  background-image: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.5),
-    url("https://freerangestock.com/sample/30763/cute-baby-boy.jpg")
-  );
-}
-.story5 {
   background-image: linear-gradient(
     transparent,
     rgba(0, 0, 0, 0.5),
@@ -482,7 +455,6 @@ nav {
   display: grid;
   grid-template-columns: auto auto auto;
 }
-/* Phần bên trái */
 .left-sidebar {
   .imp-links a {
     display: flex;
@@ -504,7 +476,6 @@ nav {
   }
 }
 
-/* Phần giữa */
 .main-content {
   .post-container {
     .comments-section {
@@ -519,7 +490,6 @@ nav {
     }
   }
 }
-/* Phần bình luận */
 .comments-section {
   .comment {
     display: flex;
@@ -548,4 +518,53 @@ nav {
 .hire {
   position: relative;
   left: 140px;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.right-sidebar img {
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
+  animation: pulse 5s infinite ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 14px;
+}
+
+.right-sidebar img:hover {
+  transform: scale(1.05);
+}
+.story {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 150px;
+  position: relative;
+}
+
+.story img {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.story p {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
 }

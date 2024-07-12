@@ -5,7 +5,7 @@
       "email": "admin1203@gmail.com",
       "userName": "ADMIN",
       "passWord": "admin1203",
-      "statusLock": true
+      "statusLock": false
     },
     {
       "id": 1,
@@ -32,15 +32,19 @@
           "userId": 4,
           "userName": "thanhle",
           "add_at": "2024-07-09T15:31:08.618Z"
-        }
-      ],
-      "invitation": [
+        },
         {
           "userId": 2,
           "userName": "hoangnguyen",
-          "add_at": "2024-07-10T23:50:27.110Z"
+          "add_at": "2024-07-11T16:04:08.546Z"
+        },
+        {
+          "userId": 5,
+          "userName": "thanhle2",
+          "add_at": "2024-07-11T16:22:27.248Z"
         }
       ],
+      "invitation": [],
       "groups": [],
       "create_at": "2024-01-15T08:00:00Z"
     },
@@ -72,7 +76,13 @@
           "id": 2
         }
       ],
-      "invitation": [],
+      "invitation": [
+        {
+          "userId": 2,
+          "userName": "hoangnguyen",
+          "add_at": "2024-07-11T15:45:50.595Z"
+        }
+      ],
       "groups": [],
       "create_at": "2024-01-16T08:00:00Z"
     },
@@ -180,7 +190,13 @@
           "id": 3
         }
       ],
-      "invitation": [],
+      "invitation": [
+        {
+          "userId": 5,
+          "userName": "thanhle2",
+          "add_at": "2024-07-11T15:45:50.595Z"
+        }
+      ],
       "groups": [],
       "create_at": "2024-01-18T08:00:00Z"
     }
@@ -188,38 +204,9 @@
   "post": [
     {
       "id": 1,
-      "userName": "xuannhat1203",
-      "email": "xuannhatvn2112@gmail.com",
-      "passWord": "Xuannhat1@",
-      "avatar": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
-      "banner": "https://img5.thuthuatphanmem.vn/uploads/2021/11/11/anh-thac-nuoc-dep-nhat_014852764.jpg",
-      "private": true,
-      "follow ": [
-        {
-          "userId": 1,
-          "created_at": "2024-02-20T11:00:00Z"
-        }
-      ],
-      "friends": [
-        {
-          "userId": 3,
-          "add_at": "2024-02-20T11:00:00Z",
-          "userName": "minhtran",
-          "id": 2
-        },
-        {
-          "userId": 4,
-          "userName": "thanhle",
-          "add_at": "2024-07-09T15:31:08.618Z"
-        }
-      ],
-      "groups": [],
-      "create_at": "2024-01-15T08:00:00Z"
-    },
-    {
-      "id": 2,
       "user_id": 2,
       "group_id": -1,
+      "statusHide": true,
       "content": "Trai đẹp học code",
       "userName": "hoangnguyen",
       "image": [
@@ -240,11 +227,12 @@
       "create_at": "2024-01-15T08:00:00Z"
     },
     {
-      "id": 3,
+      "id": 2,
       "user_id": 3,
       "group_id": -1,
-      "content": "Trai đẹp học code",
+      "content": "678787",
       "userName": "minhtran",
+      "statusHide": false,
       "private": false,
       "image": [
         "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
@@ -267,12 +255,13 @@
       "create_at": "2024-01-15T08:00:00Z"
     },
     {
-      "id": 4,
+      "id": 3,
       "user_id": 4,
       "group_id": -1,
-      "content": "Trai đẹp học code",
+      "content": "123123",
       "userName": "thanhle",
       "private": false,
+      "statusHide": false,
       "image": [
         "https://c.stocksy.com/a/snq900/z9/2347932.jpg",
         "https://thumbs.dreamstime.com/b/portrait-boy-24047694.jpg",
@@ -288,6 +277,28 @@
         }
       ],
       "create_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "user_id": 1,
+      "group_id": -1,
+      "content": "nhất đẹp trai vcl",
+      "userName": "xuannhat1203",
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080041.png?alt=media&token=ad199cf7-38bd-4eb9-b8aa-ba2aa94bba41",
+        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080051.png?alt=media&token=35cbc7b2-8851-40c7-9b1b-38c19ca9c088",
+        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080101.png?alt=media&token=522a1160-9a09-4b76-ab23-e5727ba3c2c9",
+        "https://firebasestorage.googleapis.com/v0/b/facebook-8d61a.appspot.com/o/image%2FScreenshot%202024-06-28%20080111.png?alt=media&token=663c6ed3-91d5-493e-a4fb-f2e3318994f6"
+      ],
+      "private": false,
+      "reactions": [
+        {
+          "user_id": 2,
+          "type": "laugh",
+          "create_at": "2024-07-11T21:09:35.621Z"
+        }
+      ],
+      "create_at": "2024-07-11T21:09:35.621Z",
+      "id": 4
     }
   ],
   "comments": [
@@ -320,35 +331,6 @@
       "content": "ảnh thật đẹp",
       "reactions": [],
       "create_at": "2024-01-15T08:00:00Z"
-    },
-    {
-      "id": 4,
-      "post_id": 4,
-      "user_id": 2,
-      "image": "",
-      "content": "ảnh thật đẹp",
-      "reactions": [],
-      "create_at": "2024-01-15T08:00:00Z"
-    },
-    {
-      "post_id": 3,
-      "user_id": 1,
-      "image": "",
-      "userName": "xuannhat1203",
-      "content": "",
-      "reactions": [],
-      "create_at": 3,
-      "id": 5
-    },
-    {
-      "post_id": 3,
-      "user_id": 1,
-      "image": "",
-      "userName": "xuannhat1203",
-      "content": "123123",
-      "reactions": [],
-      "create_at": 3,
-      "id": 6
     }
   ],
   "groups": [
@@ -363,7 +345,8 @@
           "join_at": "2024-02-20T11:00:00Z"
         }
       ],
-      "create_at": "2024-02-20T11:00:00Z"
+      "create_at": "2024-02-20T11:00:00Z",
+      "status": true
     },
     {
       "group_picture": "blob:http://localhost:5173/435ed909-189c-45d7-8dee-44bc95048c49",
@@ -381,10 +364,67 @@
         {
           "userName": "thanhle",
           "join_at": "2024-07-09T17:10:30.553Z"
+        },
+        {
+          "userName": "xuannhat1203",
+          "join_at": "2024-07-11T14:47:11-07:00"
         }
       ],
       "create_at": "2024-07-09T17:10:30.553Z",
-      "id": 2
+      "id": 2,
+      "status": false
+    }
+  ],
+  "banner": [
+    {
+      "id": 1,
+      "banner": "https://img3.thuthuatphanmem.vn/uploads/2019/09/16/banner-quang-cao-dep-cho-my-pham_083547676.jpg"
+    },
+    {
+      "id": 2,
+      "banner": "https://insieutoc.vn/wp-content/uploads/2021/02/banner-quang-cao-thuoc.jpg"
+    },
+    {
+      "id": 3,
+      "banner": "https://img3.thuthuatphanmem.vn/uploads/2019/09/16/anh-banner-quang-cao-my-pham_083546785.jpg"
+    },
+    {
+      "id": 4,
+      "banner": "https://www.bannersnack.com/blog/wp-content/uploads/2016/09/free-banner-maker-templates.png"
+    },
+    {
+      "id": 5,
+      "banner": "https://d3design.vn/uploads/Summer%20drink%20menu%20promotion%20banner%20template.jpg"
+    }
+  ],
+  "story": [
+    {
+      "id": 1,
+      "userName": "thanhle",
+      "storyImage": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg",
+      "comment": [
+        {
+          "userName": "xuannhat1203",
+          "text": "Đẹp quá ạ"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "userName": "minhtran",
+      "comment": [
+        {
+          "userName": "xuannhat1203",
+          "text": "Đẹp quá ạ"
+        }
+      ],
+      "storyImage": "https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg"
+    },
+    {
+      "userName": "xuannhat1203",
+      "storyImage": "Screenshot 2024-06-28 080244.png",
+      "comment": [],
+      "id": 3
     }
   ]
 }

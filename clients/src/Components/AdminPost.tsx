@@ -1,57 +1,66 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../store/reducers/getUser";
-import { changeStatus } from "../store/reducers/adminAccout";
 import { useNavigate } from "react-router-dom";
+import { getPost } from "../store/reducers/getListPost";
+import { hidePost, searchPost } from "../store/reducers/hidePost";
 
-export default function AdminAccount() {
-  const getListUser = useSelector((state: any) => state.user.user);
+export default function AdminPost() {
+  const getListPost = useSelector((state: any) => state.post.post);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [render, setRender] = useState(getListUser);
-  const [nameUser, setNameUser] = useState<string>("");
+  const [render, setRender] = useState(getListPost);
+  const [content, setContent] = useState<string>("");
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getPost());
   }, [dispatch]);
 
   useEffect(() => {
-    setRender(getListUser);
-  }, [getListUser]);
+    setRender(getListPost);
+  }, [getListPost]);
 
-  const handleChange = (id: number) => {
-    dispatch(changeStatus(id));
+  const handleChange = async (id: number) => {
+    await dispatch(hidePost(id));
+    dispatch(getPost());
     dispatch(getUsers());
   };
 
   const handleSearch = () => {
-    if (nameUser.trim() === "") {
-      setRender(getListUser);
+    if (content.trim() === "") {
+      setRender(getListPost);
     } else {
-      const find = getListUser.filter((user: any) =>
-        user.userName.toLowerCase().includes(nameUser.toLowerCase())
+      const find = getListPost.filter((post: any) =>
+        post.content.toLowerCase().includes(content.toLowerCase())
       );
       setRender(find);
     }
   };
+
   const handleLogout = () => {
     navigate("/login");
   };
+
   const goToHome = () => {
     navigate("/home");
   };
+
   const goToAccount = () => {
     navigate("/adminAccount");
   };
+
   const goToGroups = () => {
     navigate("/manageGroups");
   };
+
   const goToComment = () => {
     navigate("/comments");
   };
+
   const goToPost = () => {
     navigate("/posts");
   };
+
   return (
     <div className="flex h-screen bg-gradient-to-r from-gray-100 to-gray-300">
       {/* Sidebar */}
@@ -122,16 +131,14 @@ export default function AdminAccount() {
       {/* Main content */}
       <main className="flex-1 p-10 overflow-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Quản lí tài khoản
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">Quản lí groups</h1>
           <div className="flex justify-center items-center space-x-4">
             <div className="flex items-center space-x-2">
               <label className="text-lg font-medium text-gray-700">
                 Tìm kiếm tài khoản:
               </label>
               <input
-                onChange={(e) => setNameUser(e.target.value)}
+                onChange={(e) => setContent(e.target.value)}
                 type="text"
                 placeholder="Nhập tên người dùng"
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
@@ -163,33 +170,34 @@ export default function AdminAccount() {
                   UserName
                 </th>
                 <th className="px-6 py-3 text-xs font-medium uppercase tracking-wider">
-                  Phân quyền
+                  Title của bài đăng
                 </th>
                 <th className="px-6 py-3 text-xs font-medium uppercase tracking-wider">
-                  Status Account
+                  Trạng thái bài đăng
                 </th>
+                <th>Ngày đăng</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 text-center">
-              {render.map((user: any) => (
+              {render.map((post: any) => (
                 <tr
-                  key={user.id}
+                  key={post.id}
                   className="hover:bg-gray-100 transition-colors duration-200"
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {user.id + 1}
+                    {post.id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {user.userName}
+                    {post.userName}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {user.email === "admin1203@gmail.com" ? "Admin" : "User"}
+                    {post.content}
                   </td>
                   <td
-                    onClick={() => handleChange(user.id)}
+                    onClick={() => handleChange(post.id)}
                     className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 cursor-pointer"
                   >
-                    {user.statusLock === false ? (
+                    {post.statusHide === false ? (
                       <span className="material-symbols-outlined text-green-500">
                         lock_open
                       </span>
@@ -199,6 +207,7 @@ export default function AdminAccount() {
                       </span>
                     )}
                   </td>
+                  <td>{post.create_at}</td>
                 </tr>
               ))}
             </tbody>

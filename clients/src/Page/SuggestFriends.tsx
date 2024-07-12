@@ -2,19 +2,33 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import { useEffect, useState } from "react";
 import { getUsers } from "../store/reducers/getUser";
-import { addFriend2s, addFriends } from "../store/reducers/addFriends";
+import {
+  addFriendToUser,
+  addFriendToSuggested,
+} from "../store/reducers/addFriends";
 import "../SCSS/suggest.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function SuggestFriends() {
   const getUser = useSelector((state: any) => state.user.user);
   const [email, setEmail] = useState<string>("");
+  const findUser = getUser.find((user: any) => user.email === email);
+  const getBanners = useSelector((state: any) => state.banner.banner);
+  const listFriends: any[] = findUser ? findUser.friends : [];
+  const [sentInvites, setSentInvites] = useState<string[]>([]);
+  const [addedFriends, setAddedFriends] = useState<string[]>([]);
   const dispatch = useDispatch();
-  var curDate = new Date();
-
+  const curDate = new Date();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(JSON.parse(storedEmail));
+    }
+  }, []);
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
@@ -22,36 +36,49 @@ export default function SuggestFriends() {
     }
   }, []);
 
-  const findUser = getUser.find((user: any) => user.email === email);
-  console.log(findUser.invitation, 1);
-
   const friendsList =
     findUser?.friends.map((friend: any) => friend.userName) || [];
   const filteredUsers = getUser.filter(
     (user: any) =>
       user.email !== email &&
       !friendsList.includes(user.userName) &&
+      !sentInvites.includes(user.userName) &&
+      !addedFriends.includes(user.userName) &&
       user.email !== "admin1203@gmail.com"
   );
 
-  const addFriendHandler = (userName: string) => {
+  const addFriendHandler = async (userName: string) => {
     const friendToAdd = getUser.find((user: any) => user.userName === userName);
     const newFriend = {
       userId: friendToAdd.id,
-      userName: friendToAdd.userName,
+      userName: findUser.userName,
       add_at: curDate.toISOString(),
     };
 
-    dispatch(addFriends({ userId: findUser.id, newFriend }));
+    try {
+      await dispatch(
+        addFriendToUser({ userId: friendToAdd.id, newFriend })
+      ).unwrap();
+      setSentInvites([...sentInvites, userName]);
+    } catch (error) {}
   };
-  const addFriend = (userName: string) => {
+
+  const addFriend = async (userName: string) => {
     const friendToAdd = getUser.find((user: any) => user.userName === userName);
     const newFriend = {
       userId: friendToAdd.id,
       userName: friendToAdd.userName,
       add_at: curDate.toISOString(),
     };
-    dispatch(addFriend2s({ userId: findUser.id, newFriend }));
+    try {
+      await dispatch(
+        addFriendToSuggested({ userId: findUser.id, newFriend })
+      ).unwrap();
+      setAddedFriends([...addedFriends, userName]);
+    } catch (error) {}
+  };
+  const goToGroups = () => {
+    navigate("/group");
   };
   return (
     <>
@@ -74,7 +101,7 @@ export default function SuggestFriends() {
               />
               Friends
             </a>
-            <a href="#">
+            <a onClick={goToGroups} href="#">
               <img
                 src="https://cdn.pixabay.com/photo/2016/11/14/17/39/group-1824145_1280.png"
                 alt="Group"
@@ -140,16 +167,18 @@ export default function SuggestFriends() {
                   <h5>{user.userName}</h5>
                 </div>
                 <div>
-                  <button>Gỡ</button>
                   <button onClick={() => addFriendHandler(user.userName)}>
-                    Thêm bạn bè
+                    Send Invite
+                  </button>
+                  <button onClick={() => addFriend(user.userName)}>
+                    Add Friend
                   </button>
                 </div>
               </div>
             ))}
             <h2>Invitation</h2>
-            {findUser.invitation.map((user: any) => (
-              <div key={user.id}>
+            {findUser?.invitation.map((user: any) => (
+              <div key={user.userId}>
                 <div>
                   <img
                     src="https://static.vecteezy.com/system/resources/previews/011/490/381/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-white-background-vector.jpg"
@@ -158,9 +187,9 @@ export default function SuggestFriends() {
                   <h5>{user.userName}</h5>
                 </div>
                 <div>
-                  <button>Gỡ</button>
+                  <button>Remove</button>
                   <button onClick={() => addFriend(user.userName)}>
-                    Chấp nhận
+                    Accept
                   </button>
                 </div>
               </div>
@@ -207,15 +236,25 @@ export default function SuggestFriends() {
             <h4>Advertisement</h4>
             <a href="#">Close</a>
           </div>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Adobe_Illustrator_CS6_Icon.png/1987px-Adobe_Illustrator_CS6_Icon.png"
-            className="sidebar-ads"
-            alt="Advertisement"
-          />
+          {getBanners.map((banner: any) => (
+            <img key={banner.id} src={banner.banner} />
+          ))}
+          <br />
           <div className="sidebar-title">
             <h4>Conversations</h4>
             <a href="#">Hide Chat</a>
           </div>
+          {listFriends.map((item: any) => (
+            <div className="online-list" key={item.userName}>
+              <div className="online">
+                <img
+                  src="https://live.staticflickr.com/1305/804659305_29815f2ec5_b.jpg"
+                  alt="Xuân Nhất"
+                />
+              </div>
+              <p>{item.userName}</p>
+            </div>
+          ))}
         </div>
       </div>
     </>
